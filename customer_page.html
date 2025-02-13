@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        li {
+            background: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+        }
+        img {
+            max-width: 100px;
+            border-radius: 5px;
+        }
+        p {
+            margin: 5px 0;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Available Products</h2>
+    <form method="get" action="{{ url_for('search_product') }}">
+        <input type="text" name="search" placeholder="Search for a product">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for product in products %}
+        <li>
+            <img src="{{ product['image'] }}" alt="{{ product['name'] }}">
+            <p><strong>Name:</strong> {{ product['name'] }}</p>
+            <p><strong>Cost:</strong> {{ product['cost'] }}</p>
+            <p><strong>Place:</strong> {{ product['place'] }}</p>
+            <p><strong>Phone:</strong> {{ product['phone'] }}</p>
+            <p><strong>Email:</strong> {{ product['email'] }}</p>
+            <p><strong>Quantity:</strong> {{ product['quantity'] }}</p>
+            <form method="post" action="{{ url_for('buy_product') }}">
+                <input type="hidden" name="product_id" value="{{ product['_id'] }}">
+                <input type="number" name="quantity" min="1" max="{{ product['quantity'] }}" required>
+                <button type="submit">Buy</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
