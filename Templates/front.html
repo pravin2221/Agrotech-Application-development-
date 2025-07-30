@@ -1,44 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Agro Tech</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        button {
-            background-color:  #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color:  #4CAF50;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <form method="post" action="{{ url_for('front') }}">
-        <button type="submit" name="button" value="login">login</button>
-    </form> 
+<body class="min-h-screen bg-gradient-to-br from-green-100 via-white to-green-50 flex items-center justify-center">
+    <div class="w-full max-w-md px-8 py-10 bg-white rounded-2xl shadow-2xl border border-green-100">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-green-700 mb-2 tracking-wide">Welcome to Agro Tech</h1>
+            <p class="text-sm text-gray-500">Smart solutions for modern agriculture</p>
+        </div>
+        <form method="post" action="{{ url_for('front') }}" class="flex flex-col items-center gap-4">
+            <button 
+                type="submit" 
+                name="button" 
+                value="login"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-200 shadow-md hover:shadow-lg"
+            >
+                Login
+            </button>
+        </form>
+    </div>
 </body>
 </html>
-
-    
