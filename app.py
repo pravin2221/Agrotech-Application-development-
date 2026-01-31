@@ -11,14 +11,25 @@ app.secret_key = b'$\x94\xd3x&\xaf\x06\x8e>\x88d\x82\xec\xd7a\xe7jz\x88\xbf\xa2\
 
 # MongoDB connection string from environment variable
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://pravinramanaa9119psgps2020_db_user:Agrotech22@cluster0.yx4pi3r.mongodb.net/?appName=Cluster0')
-client = MongoClient(MONGO_URI)
-
-# Select the database
-db = client['mydatabase']
+try:
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    client.server_info()  # Test connection
+    db = client['mydatabase']
+except Exception as e:
+    print(f"MongoDB connection error: {e}")
+    db = None
 
 # Select the collections
-users_collection = db['users']
-crops_collection = db['crops']
+if db:
+    users_collection = db['users']
+    crops_collection = db['crops']
+else:
+    users_collection = None
+    crops_collection = None
+
+@app.route('/health')
+def health():
+    return {"status": "ok", "mongo_connected": db is not None}, 200
 
 @app.route('/')
 def index():
