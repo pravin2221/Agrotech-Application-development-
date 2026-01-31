@@ -3,20 +3,22 @@ from flask import Flask, request, render_template, redirect, url_for, session
 from pymongo import MongoClient
 import hashlib
 from bson.objectid import ObjectId
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='Templates')
 app.secret_key = b'$\x94\xd3x&\xaf\x06\x8e>\x88d\x82\xec\xd7a\xe7jz\x88\xbf\xa2\xc93\x81'  
 # Replace with your generated secret key
 
-# MongoDB connection string
-client = MongoClient('mongodb+srv://app:agrotech@agrotech.z2op6uj.mongodb.net/?retryWrites=true&w=majority&appName=agrotech')
+# MongoDB connection string from environment variable
+MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://pravinramanaa9119psgps2020_db_user:Agrotech22@cluster0.yx4pi3r.mongodb.net/?appName=Cluster0')
+client = MongoClient(MONGO_URI)
 
 # Select the database
 db = client['mydatabase']
 
 # Select the collections
 users_collection = db['users']
-crops_collection = db['crops'] 
+crops_collection = db['crops']
 
 @app.route('/')
 def index():
