@@ -3,33 +3,20 @@ from flask import Flask, request, render_template, redirect, url_for, session
 from pymongo import MongoClient
 import hashlib
 from bson.objectid import ObjectId
-import os
 
-app = Flask(__name__, template_folder='Templates')
+app = Flask(__name__)
 app.secret_key = b'$\x94\xd3x&\xaf\x06\x8e>\x88d\x82\xec\xd7a\xe7jz\x88\xbf\xa2\xc93\x81'  
 # Replace with your generated secret key
 
-# MongoDB connection string from environment variable
-MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://pravinramanaa9119psgps2020_db_user:Agrotech22@cluster0.yx4pi3r.mongodb.net/?appName=Cluster0')
-try:
-    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
-    client.server_info()  # Test connection
-    db = client['mydatabase']
-except Exception as e:
-    print(f"MongoDB connection error: {e}")
-    db = None
+# MongoDB connection string
+client = MongoClient('mongodb+srv://pravinramanaa9119psgps2020_db_user:Agrotech22@cluster0.yx4pi3r.mongodb.net/?appName=Cluster0&ssl=true')
+
+# Select the database
+db = client['mydatabase']
 
 # Select the collections
-if db:
-    users_collection = db['users']
-    crops_collection = db['crops']
-else:
-    users_collection = None
-    crops_collection = None
-
-@app.route('/health')
-def health():
-    return {"status": "ok", "mongo_connected": db is not None}, 200
+users_collection = db['users']
+crops_collection = db['crops'] 
 
 @app.route('/')
 def index():
