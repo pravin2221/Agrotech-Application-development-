@@ -9,7 +9,7 @@ app.secret_key = b'$\x94\xd3x&\xaf\x06\x8e>\x88d\x82\xec\xd7a\xe7jz\x88\xbf\xa2\
 # Replace with your generated secret key
 
 # MongoDB connection string
-client = MongoClient('mongodb+srv://pravinramanaa9119psgps2020_db_user:Agrotech22@cluster0.yx4pi3r.mongodb.net/?appName=Cluster0')
+client = MongoClient('mongodb+srv://app:agrotech@agrotech.z2op6uj.mongodb.net/?retryWrites=true&w=majority&appName=agrotech')
 
 # Select the database
 db = client['mydatabase']
